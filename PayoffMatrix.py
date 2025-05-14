@@ -59,8 +59,6 @@ class PayoffMatrix:
         return (i) * self.m + j
 
 
-
-
 x = PayoffMatrix(3,2,0)
 print(x.location_type)
 for i in x.matrix:

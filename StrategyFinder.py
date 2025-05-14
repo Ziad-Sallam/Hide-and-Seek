@@ -50,8 +50,8 @@ def solve_zero_sum_game(matrix: list[list[int]]) -> dict:
     assert np.isclose(v_A, v_B), "Game values for Players A and B do not match!"
 
     return {
-        'Player A (x)': x,
-        'Player B (y)': y,
+        'Hider': x,
+        'Seeker': y,
         'Game value (v)': v_A
     }
 
@@ -97,15 +97,14 @@ def run_test_cases():
 
     for test in test_cases:
         result = solve_zero_sum_game(test["matrix"])
-        x = np.round(result['Player A (x)'], 4)
-        y = np.round(result['Player B (y)'], 4)
+        x = np.round(result['Hider'], 4)
+        y = np.round(result['Seeker'], 4)
         v = np.round(result['Game value (v)'], 4)
         print(test["name"])
-        print("Optimal strategy for Player A (x):", np.round(result['Player A (x)'], 4))
-        print("Optimal strategy for Player B (y):", np.round(result['Player B (y)'], 4))
+        print("Optimal strategy for Player A (x):", np.round(result['Hider'], 4))
+        print("Optimal strategy for Player B (y):", np.round(result['Seeker'], 4))
         print("Game value (v):", np.round(result['Game value (v)'], 4))
         print("----------------------------------------------------------------------------------")
-
 
 
 if __name__ == "__main__":

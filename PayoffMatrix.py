@@ -1,9 +1,19 @@
 import random
 import copy
 
+import numpy as np
+
+from StrategyFinder import solve_zero_sum_game
 
 class PayoffMatrix:
     def __init__(self,n: int,m: int, perspective: int) -> None:
+        """
+        initialize the payoff matrix
+
+        :param n: number of rows
+        :param m: number of columns
+        :param perspective:
+        """
         self.size = n*m
         self.n = n
         self.m = m
@@ -59,8 +69,15 @@ class PayoffMatrix:
         return (i) * self.m + j
 
 
-x = PayoffMatrix(3,2,0)
+x = PayoffMatrix(2,2,0)
 print(x.location_type)
 for i in x.matrix:
     print(i)
+
+print("---------------------------------------------------------")
+result = solve_zero_sum_game(x.matrix)
+
+print("Optimal strategy for Player A (x):", np.round(result['Player A (x)'], 4))
+print("Optimal strategy for Player B (y):", np.round(result['Player B (y)'], 4))
+print("Game value (v):", np.round(result['Game value (v)'], 4))
 

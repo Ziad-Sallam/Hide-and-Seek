@@ -6,244 +6,172 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>974</width>
-    <height>711</height>
+    <width>877</width>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Hide and Seek Game Theory</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="info_label">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>48</y>
-      <width>941</width>
-      <height>16</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_types">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>71</y>
-      <width>72</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>World Types</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="type_table">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>94</y>
-      <width>952</width>
-      <height>141</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_matrix">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>242</y>
-      <width>74</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Payoff Matrix</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="matrix_table">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>265</y>
-      <width>952</width>
-      <height>142</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_probs">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>414</y>
-      <width>117</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Optimal Probabilities</string>
-    </property>
-   </widget>
-   <widget class="QTableWidget" name="prob_table">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>437</y>
-      <width>952</width>
-      <height>141</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="score_label">
-    <property name="geometry">
-     <rect>
-      <x>11</x>
-      <y>622</y>
-      <width>951</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QRadioButton" name="oneD">
-       <property name="text">
-        <string>1D</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="twoD">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="text">
-        <string>2D</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>120</x>
-      <y>10</y>
-      <width>851</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="QLabel" name="label_world_size">
-       <property name="text">
-        <string>World Size (N*M):</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="N"/>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="M">
-       <property name="minimum">
-        <number>2</number>
-       </property>
-       <property name="maximum">
-        <number>10</number>
-       </property>
-       <property name="value">
-        <number>3</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="hider_radio">
-       <property name="text">
-        <string>Hider</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QRadioButton" name="seeker_radio">
-       <property name="text">
-        <string>Seeker</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="reset_btn">
-       <property name="text">
-        <string>Reset</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="start_btn">
-       <property name="text">
-        <string>Start Game</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sim_btn">
-       <property name="text">
-        <string>Simulate 100 Rounds</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>590</y>
-      <width>951</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="playLayout">
-     <item>
-      <widget class="QLabel" name="label_choose_place">
-       <property name="text">
-        <string>Choose your place:</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QSpinBox" name="place_spin"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="play_btn">
-       <property name="text">
-        <string>Play Round</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+   <layout class="QVBoxLayout" name="mainCentralLayout">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="oneD">
+          <property name="text">
+           <string>1D</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="twoD">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string>2D</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_world_size">
+          <property name="text">
+           <string>World Size (N*M):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="N"/>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="M">
+          <property name="minimum">
+           <number>2</number>
+          </property>
+          <property name="maximum">
+           <number>10</number>
+          </property>
+          <property name="value">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="hider_radio">
+          <property name="text">
+           <string>Hider</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="seeker_radio">
+          <property name="text">
+           <string>Seeker</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="reset_btn">
+          <property name="text">
+           <string>Reset</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="start_btn">
+          <property name="text">
+           <string>Start Game</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sim_btn">
+          <property name="text">
+           <string>Simulate 100 Rounds</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="info_label"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_types">
+        <property name="text">
+         <string>World Types</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="type_table"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_matrix">
+        <property name="text">
+         <string>Payoff Matrix</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="matrix_table"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_probs">
+        <property name="text">
+         <string>Optimal Probabilities</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="prob_table"/>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="playLayout">
+        <item>
+         <widget class="QLabel" name="label_choose_place">
+          <property name="text">
+           <string>Choose your place:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="place_spin"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="play_btn">
+          <property name="text">
+           <string>Play Round</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="score_label"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>974</width>
+     <width>877</width>
      <height>26</height>
     </rect>
    </property>

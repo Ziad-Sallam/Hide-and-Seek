@@ -14,6 +14,8 @@ class GameInterface:
         self.player_score =0
         self.computer_score = 0
         self.score = 0
+        self.computer_choices = []
+        self.player_choices = []
 
 
     def game(self, place :int):
@@ -23,6 +25,7 @@ class GameInterface:
         """
 
         choices = []
+        self.player_choices.append(place)
         for i in range(self.payoff_matrix.size):
             choices.append(i)
         if self.perspective == 0:
@@ -33,6 +36,7 @@ class GameInterface:
         print(values)
 
         x = np.random.choice(choices, 1, p=values)[0]
+        self.computer_choices.append(x)
         print(x)
         if self.perspective == 0:
             self.score += self.payoff_matrix.matrix[place][x]

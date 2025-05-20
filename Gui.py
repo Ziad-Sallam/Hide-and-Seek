@@ -18,15 +18,6 @@ class MainWindow(QMainWindow):
         
         
     def init_ui(self):
-    
-        self.group1 = QButtonGroup()
-        self.group1.addButton(self.oneD)
-        self.group1.addButton(self.twoD)
-        
-        self.group2 = QButtonGroup()
-        self.group2.addButton(self.hider_radio)
-        self.group2.addButton(self.seeker_radio)
-
         self.start_btn.clicked.connect(self.start_game)
         self.reset_btn.clicked.connect(self.reset_game)
         self.sim_btn.clicked.connect(self.simulate_game)
@@ -37,9 +28,18 @@ class MainWindow(QMainWindow):
         self.N.setValue(3)
         self.M.setValue(3)
         self.M.setEnabled(False)
+        self.oneD.clicked.connect(self.update_world_type)
+        self.twoD.clicked.connect(self.update_world_type)
 
-        # Hide next round button initially
-        self.next_round_btn.setEnabled(False)
+        self.dim_group = QButtonGroup(self)
+        self.dim_group.addButton(self.oneD)
+        self.dim_group.addButton(self.twoD)
+        self.role_group = QButtonGroup(self)
+        self.role_group.addButton(self.hider_radio)
+        self.role_group.addButton(self.seeker_radio)
+        self.oneD.setChecked(True)
+        self.hider_radio.setChecked(True)
+        self.update_world_type()
 
     def reset_game(self):
         self.payoff = None

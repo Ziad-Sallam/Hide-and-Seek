@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QTableWidgetItem, QMessageBox
+    QApplication, QMainWindow, QTableWidgetItem, QMessageBox, QButtonGroup, QPushButton
 )
 from PyQt6 import uic
 from PayoffMatrix import PayoffMatrix
@@ -18,16 +18,28 @@ class MainWindow(QMainWindow):
         
         
     def init_ui(self):
+    
+        self.group1 = QButtonGroup()
+        self.group1.addButton(self.oneD)
+        self.group1.addButton(self.twoD)
+        
+        self.group2 = QButtonGroup()
+        self.group2.addButton(self.hider_radio)
+        self.group2.addButton(self.seeker_radio)
+
         self.start_btn.clicked.connect(self.start_game)
         self.reset_btn.clicked.connect(self.reset_game)
         self.sim_btn.clicked.connect(self.simulate_game)
-        self.play_btn.clicked.connect(self.play_round)
+        self.oneD.clicked.connect(self.update_world_type)
+        self.twoD.clicked.connect(self.update_world_type)
+        self.next_round_btn.clicked.connect(self.prepare_next_round)
+
         self.N.setValue(3)
         self.M.setValue(3)
         self.M.setEnabled(False)
-        self.oneD.clicked.connect(self.update_world_type)
-        self.twoD.clicked.connect(self.update_world_type)
-            
+
+        # Hide next round button initially
+        self.next_round_btn.setEnabled(False)
 
     def reset_game(self):
         self.payoff = None
@@ -37,16 +49,16 @@ class MainWindow(QMainWindow):
         self.computer_score = 0
         self.update_scoreboard()
         self.info_label.setText("Set world size and role, then click Start Game.")
-        self.type_table.clear()
         self.matrix_table.clear()
         self.prob_table.clear()
+        self.place_table.clear()
         self.N.setValue(3)
         self.M.setValue(3)
+        self.next_round_btn.setEnabled(False)
 
     def start_game(self):
         n = self.N.value()
         m = self.M.value()
-   
         role = 0 if self.hider_radio.isChecked() else 1
 
         self.payoff = PayoffMatrix(n, m) if self.twoD.isChecked() else PayoffMatrix(1, n)
@@ -54,35 +66,16 @@ class MainWindow(QMainWindow):
         self.rounds = 0
         self.player_score = 0
         self.computer_score = 0
-        self.place_spin.setMaximum(n-1)
         self.update_tables()
         self.update_scoreboard()
         self.info_label.setText(f"Game started! You are the {'Hider' if role==0 else 'Seeker'}.")
+        self.prepare_place_table()
+        self.next_round_btn.setEnabled(False)
 
     def update_tables(self):
         n = self.payoff.n
         m = self.payoff.m
         size = n * m
-
-        # Update type_table
-        self.type_table.clear()
-        if n == 1:  # 1D world
-            self.type_table.setRowCount(1)
-            self.type_table.setColumnCount(m)
-            for j in range(m):
-                self.type_table.setItem(0, j, QTableWidgetItem(str(self.payoff.location_type[j])))
-            self.type_table.setHorizontalHeaderLabels([str(j) for j in range(m)])
-            self.type_table.setVerticalHeaderLabels(["Type"])
-        else:  # 2D world
-            self.type_table.setRowCount(n)
-            self.type_table.setColumnCount(m)
-            for i in range(n):
-                for j in range(m):
-                    idx = i * m + j
-                    self.type_table.setItem(i, j, QTableWidgetItem(str(self.payoff.location_type[idx])))
-            self.type_table.setHorizontalHeaderLabels([str(j) for j in range(m)])
-            self.type_table.setVerticalHeaderLabels([str(i) for i in range(n)])
-
        
         self.matrix_table.clear()
         self.matrix_table.setRowCount(size)
@@ -103,6 +96,81 @@ class MainWindow(QMainWindow):
             self.prob_table.setItem(1, i, QTableWidgetItem(f"{probs['Seeker'][i]:.4f}"))
         self.prob_table.setVerticalHeaderLabels(["Hider", "Seeker"])
         self.prob_table.setHorizontalHeaderLabels([str(i) for i in range(size)])
+
+        # Place table for selection
+        self.prepare_place_table()
+
+    def prepare_place_table(self):
+        n = self.payoff.n
+        m = self.payoff.m
+        self.place_table.clear()
+        self.place_table.setRowCount(n)
+        self.place_table.setColumnCount(m)
+        self.button_refs = {}  # Store buttons for color reset
+        for i in range(n):
+            for j in range(m):
+                idx = i * m + j
+                btn = QPushButton(f"{idx}")
+                self.set_button_color(btn, self.payoff.location_type[idx])
+                btn.clicked.connect(lambda _, idx=idx: self.place_selected(idx))
+                self.place_table.setCellWidget(i, j, btn)
+                self.button_refs[idx] = btn
+        self.place_table.setHorizontalHeaderLabels([str(j) for j in range(m)])
+        self.place_table.setVerticalHeaderLabels([str(i) for i in range(n)])
+
+    def place_selected(self, idx):
+        if not self.interface:
+            QMessageBox.warning(self, "Warning", "Start the game first!")
+            return
+        # Play the round
+        self.interface.game(idx)
+        self.rounds += 1
+        self.player_score = self.interface.player_score
+        self.computer_score = self.interface.computer_score
+        player_choice = self.interface.player_choices[-1]
+        computer_choice = self.interface.computer_choices[-1]
+        self.info_label.setText(
+            f"Your selection: {player_choice} | Computer selection: {computer_choice}"
+        )
+        self.update_scoreboard()
+        # Disable all buttons until next round
+        for btn in self.button_refs.values():
+            btn.setEnabled(False)
+        # Highlight choices
+        self.highlight_choices(player_choice, computer_choice)
+        self.next_round_btn.setEnabled(True)
+
+    def prepare_next_round(self):
+        # Reset all buttons to their original color and enable
+        self.reset_button_colors()
+        for btn in self.button_refs.values():
+            btn.setEnabled(True)
+        self.info_label.setText("Choose your place for the next round.")
+        self.next_round_btn.setEnabled(False)
+        
+    def set_button_color(self, btn, type_value):
+        # Set color based on type
+        if type_value == 1:
+            btn.setStyleSheet("background-color: blue; color: white;")
+        elif type_value == 2:
+            btn.setStyleSheet("background-color: green; color: white;")
+        elif type_value == 3:
+            btn.setStyleSheet("background-color: red; color: white;")
+        else:
+            btn.setStyleSheet("")
+
+    def highlight_choices(self, player_idx, computer_idx):
+        # Mark both yellow if different, black if same
+        if player_idx == computer_idx:
+            self.button_refs[player_idx].setStyleSheet("background-color: black; color: white;")
+        else:
+            self.button_refs[player_idx].setStyleSheet("background-color: yellow; color: black;")
+            self.button_refs[computer_idx].setStyleSheet("background-color: yellow; color: black;")
+
+    def reset_button_colors(self):
+        # Reset all buttons to their original color
+        for idx, btn in self.button_refs.items():
+            self.set_button_color(btn, self.payoff.location_type[idx])    
 
     def update_world_type(self):
         if self.oneD.isChecked():

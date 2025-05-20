@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import (
-    QApplication, QMainWindow, QTableWidgetItem, QMessageBox
+    QApplication, QMainWindow, QTableWidgetItem, QMessageBox, QButtonGroup
 )
 from PyQt6 import uic
 from PayoffMatrix import PayoffMatrix
@@ -27,7 +27,16 @@ class MainWindow(QMainWindow):
         self.M.setEnabled(False)
         self.oneD.clicked.connect(self.update_world_type)
         self.twoD.clicked.connect(self.update_world_type)
-            
+
+        self.dim_group = QButtonGroup(self)
+        self.dim_group.addButton(self.oneD)
+        self.dim_group.addButton(self.twoD)
+        self.role_group = QButtonGroup(self)
+        self.role_group.addButton(self.hider_radio)
+        self.role_group.addButton(self.seeker_radio)
+        self.oneD.setChecked(True)
+        self.hider_radio.setChecked(True)
+        self.update_world_type()
 
     def reset_game(self):
         self.payoff = None

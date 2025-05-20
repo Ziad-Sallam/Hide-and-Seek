@@ -39,6 +39,7 @@ class MainWindow(QMainWindow):
         self.role_group.addButton(self.seeker_radio)
         self.oneD.setChecked(True)
         self.hider_radio.setChecked(True)
+        self.next_round_btn.setEnabled(False)
         self.update_world_type()
 
     def reset_game(self):

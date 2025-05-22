@@ -159,7 +159,7 @@
       <item>
        <widget class="QLabel" name="SimulationLabel">
         <property name="text">
-         <string>Simulation choices</string>
+         <string>Choices</string>
         </property>
        </widget>
       </item>

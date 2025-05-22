@@ -67,6 +67,8 @@ class MainWindow(QMainWindow):
         self.rounds = 0
         self.player_score = 0
         self.computer_score = 0
+        self.choices.setColumnCount(2)
+        self.choices.setHorizontalHeaderLabels(["Hider", "Seeker"])
         self.update_tables()
         self.update_scoreboard()
         self.info_label.setText(f"Game started! You are the {'Hider' if role==0 else 'Seeker'}.")
@@ -130,6 +132,13 @@ class MainWindow(QMainWindow):
         self.computer_score = self.interface.computer_score
         player_choice = self.interface.player_choices[-1]
         computer_choice = self.interface.computer_choices[-1]
+
+        player_choice = self.interface.player_choices[-1]
+        computer_choice = self.interface.computer_choices[-1]
+        row = self.choices.rowCount()
+        self.choices.insertRow(row)
+        self.choices.setItem(row, 0, QTableWidgetItem(str(player_choice)))
+        self.choices.setItem(row, 1, QTableWidgetItem(str(computer_choice)))
         self.info_label.setText(
             f"Your selection: {player_choice} | Computer selection: {computer_choice}"
         )
@@ -197,6 +206,15 @@ class MainWindow(QMainWindow):
         self.player_score = self.interface.player_score
         self.computer_score = self.interface.computer_score
         self.update_scoreboard()
+
+        self.choices.setColumnCount(2)
+        self.choices.setHorizontalHeaderLabels(["Hider", "Seeker"])        # Add choices to the choices table
+        player_choice = self.interface.player_choices[-1]
+        computer_choice = self.interface.computer_choices[-1]
+        row = self.choices.rowCount()
+        self.choices.insertRow(row)
+        self.choices.setItem(row, 0, QTableWidgetItem(str(player_choice)))
+        self.choices.setItem(row, 1, QTableWidgetItem(str(computer_choice)))
 
     def simulate_game(self):
         if not self.interface:

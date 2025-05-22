@@ -42,15 +42,19 @@ class GameInterface:
             self.score += self.payoff_matrix.matrix[place][x]
             if x == place:
                 self.computer_score -= self.payoff_matrix.matrix[place][x]
+                self.player_score += self.payoff_matrix.matrix[place][x]
             else:
                 self.player_score += self.payoff_matrix.matrix[place][x]
+                self.computer_score -= self.payoff_matrix.matrix[place][x]
 
         else:
             self.score += self.payoff_matrix.matrix[x][place]
             if x == place:
                 self.computer_score -= self.payoff_matrix.matrix[x][place]
+                self.player_score += self.payoff_matrix.matrix[x][place]
             else:
                 self.player_score += self.payoff_matrix.matrix[x][place]
+                self.computer_score -= self.payoff_matrix.matrix[x][place]
 
 
     def simulate(self,number_of_games):

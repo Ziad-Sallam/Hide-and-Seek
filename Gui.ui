@@ -19,6 +19,90 @@
    </property>
    <layout class="QVBoxLayout" name="mainCentralLayout">
     <item>
+     <layout class="QHBoxLayout" name="topBarLayout">
+      <item>
+       <layout class="QHBoxLayout" name="layoutDim">
+        <item>
+         <widget class="QRadioButton" name="oneD">
+          <property name="text">
+           <string>1D</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="twoD">
+          <property name="text">
+           <string>2D</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_world_size">
+          <property name="text">
+           <string>World Size (N*M):</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="N"/>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="M"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="layoutRole">
+        <item>
+         <widget class="QRadioButton" name="hider_radio">
+          <property name="text">
+           <string>Hider</string>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="seeker_radio">
+          <property name="text">
+           <string>Seeker</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="reset_btn">
+        <property name="text">
+         <string>Reset</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="start_btn">
+        <property name="text">
+         <string>Start Game</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="sim_btn">
+        <property name="text">
+         <string>Simulate 100 Rounds</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="sizeConstraint">
        <enum>QLayout::SetDefaultConstraint</enum>
@@ -33,91 +117,6 @@
        <number>0</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QRadioButton" name="oneD">
-          <property name="text">
-           <string>1D</string>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="twoD">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="text">
-           <string>2D</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_world_size">
-          <property name="text">
-           <string>World Size (N*M):</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="N"/>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="M">
-          <property name="minimum">
-           <number>2</number>
-          </property>
-          <property name="maximum">
-           <number>10</number>
-          </property>
-          <property name="value">
-           <number>3</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="hider_radio">
-          <property name="text">
-           <string>Hider</string>
-          </property>
-          <property name="checked">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QRadioButton" name="seeker_radio">
-          <property name="text">
-           <string>Seeker</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="reset_btn">
-          <property name="text">
-           <string>Reset</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="start_btn">
-          <property name="text">
-           <string>Start Game</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="sim_btn">
-          <property name="text">
-           <string>Simulate 100 Rounds</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
        <widget class="QLabel" name="info_label"/>
       </item>
       <item>
@@ -128,7 +127,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QTableWidget" name="type_table"/>
+       <widget class="QTableWidget" name="place_table"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="next_round_btn">
+        <property name="text">
+         <string>Next Round</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_matrix">
@@ -151,25 +157,7 @@
        <widget class="QTableWidget" name="prob_table"/>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="playLayout">
-        <item>
-         <widget class="QLabel" name="label_choose_place">
-          <property name="text">
-           <string>Choose your place:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="place_spin"/>
-        </item>
-        <item>
-         <widget class="QPushButton" name="play_btn">
-          <property name="text">
-           <string>Play Round</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QHBoxLayout" name="playLayout"/>
       </item>
      </layout>
     </item>
@@ -184,7 +172,7 @@
      <x>0</x>
      <y>0</y>
      <width>899</width>
-     <height>20</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

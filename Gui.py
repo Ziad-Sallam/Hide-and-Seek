@@ -210,6 +210,15 @@ class MainWindow(QMainWindow):
         self.computer_score = self.interface.computer_score
         self.update_scoreboard()
 
+        # Fill the choices table with hider and seeker choices
+        self.choices.clear()
+        self.choices.setRowCount(100)
+        self.choices.setColumnCount(2)
+        self.choices.setHorizontalHeaderLabels(["Hider", "Seeker"])
+        for i in range(100):
+            self.choices.setItem(i, 0, QTableWidgetItem(str(hider_choices[i])))
+            self.choices.setItem(i, 1, QTableWidgetItem(str(seeker_choices[i])))
+
     def update_scoreboard(self):
         self.score_label.setText(
             f"Rounds played: {self.rounds} | Player score: {self.player_score} | Computer score: {self.computer_score}"

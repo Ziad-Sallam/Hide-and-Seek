@@ -157,6 +157,16 @@
        <widget class="QTableWidget" name="prob_table"/>
       </item>
       <item>
+       <widget class="QLabel" name="SimulationLabel">
+        <property name="text">
+         <string>Simulation choices</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTableWidget" name="choices"/>
+      </item>
+      <item>
        <layout class="QHBoxLayout" name="playLayout"/>
       </item>
      </layout>
